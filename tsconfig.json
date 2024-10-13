@@ -1,0 +1,22 @@
+{
+    "compileOnSave": true,
+    "compilerOptions": {
+      "removeComments": false,
+      "target": "ESNext",
+      "module": "ES2020",
+      "lib": [
+        "DOM",
+        "ESNext"
+      ],
+      "strict": true,
+      "noImplicitAny": true,
+      "skipLibCheck": true,
+      "outDir": ""
+    },
+    "include": [
+      "*.ts",
+    ],
+    "exclude": [
+      "*.js"
+    ]
+  }
