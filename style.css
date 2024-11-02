@@ -3,6 +3,7 @@
     --gray: #787c7e;
     --green: #6aaa64;
     --yellow: #c9b458;
+    --extracolor: darkcyan;
 }
 
 body {
@@ -15,22 +16,16 @@ body {
     box-sizing: border-box;
 }
 
-@media only screen and (max-width: 550px) {
-    body {
-        transform: scale(.7);
-    }
-}
-
 main {
     display: grid;
     justify-items: center;
+    gap: 2rem;
 }
 
 .board {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     gap: 8px;
-    margin-bottom: 2em;
     width: fit-content;
 }
 
@@ -43,37 +38,133 @@ main {
     width: 4.5rem;
     border: 2px solid var(--lightgray);
     text-transform: uppercase;
-    transition: background-color .8s ease, transform .1s ease;
-}
-
-.letter-box:not(:empty) {
-    border-color: var(--gray)
-}
-
-.letter-box.popout {
-    transform: scale(1.05);
+    transition: background-color .8s ease, border-color .8s ease;
 }
 
 .letter-box.shake {
     animation: shake .15s ease-in infinite;
 }
 
-.letter-box.yellow, .keyboard button.yellow {
+.letter-box.flourish {
+    animation: flourish 1s linear;
+}
+
+.yellow {
     color: white;
     border-color: var(--yellow);
     background-color: var(--yellow);
 }
 
-.letter-box.green, .keyboard button.green {
+.green {
     color: white;
     border-color: var(--green);
     background-color: var(--green);
 }
 
-.letter-box.gray, .keyboard button.gray {
+.gray {
     color: white;
     border-color: var(--gray);
     background-color: var(--gray);
+}
+
+.keyboard {
+    display: grid;
+    row-gap: 5px;
+}
+
+.keyboard>div {
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+}
+
+button {
+    all: unset;
+    cursor: pointer;
+    user-select: none;
+    text-align: center;
+    text-transform: uppercase;
+    background-color: var(--lightgray);
+    color: black;
+    width: 2rem;
+    height: 3rem;
+    border-radius: .3rem;
+    padding: .5rem;
+}
+
+.keyboard button {
+    transition: background-color .1s ease, outline-color .1s ease;
+}
+
+button:focus-visible,
+button:hover {
+    outline: 1px solid var(--extracolor);
+}
+
+button:active,
+button.fired {
+    background-color: var(--extracolor);
+    outline-color: none;
+}
+
+.keyboard button[data-key="Enter"],
+.keyboard button[data-key="Backspace"] {
+    width: 4rem;
+}
+
+dialog {
+    display: grid;
+    grid-template-rows: 1fr min-content;
+    align-items: center;
+    height: 60vh;
+    width: 60vh;
+    max-width: 95svw;
+    max-height: 95svh;
+    border: 1px solid var(--extracolor);
+    border-radius: 3px;
+    outline: none;
+}
+
+.modal-content-div {
+    display: grid;
+    place-items: center;
+    row-gap: 3rem;
+}
+
+.modal-button-div {
+    height: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    flex-flow: row-reverse nowrap;
+    gap: 3rem;
+}
+
+.modal-button-div button {
+    width: 10rem;
+}
+
+.results {
+    display: grid;
+    row-gap: 5px;
+}
+
+.results p {
+    font-size: 20pt;
+    margin: 0px 0px 8px 0px;
+    text-align: center;
+    text-transform: uppercase;
+
+}
+
+.results>div {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 5px;
+}
+
+.results>div>div {
+    height: 2.5rem;
+    width: 2.5rem;
 }
 
 @keyframes shake {
@@ -90,28 +181,18 @@ main {
     }
 }
 
-.keyboard>div {
-    display: flex;
-    gap: 5px;
-    justify-content: center;
-    margin-bottom: 5px;
-}
+@keyframes flourish {
+    0% {
+        transform: scale(1) rotate(0deg);
+    }
 
-.keyboard button {
-    all: unset;
-    cursor: pointer;
-    user-select: none;
-    text-align: center;
-    text-transform: uppercase;
-    background-color: var(--lightgray);
-    color: black;
-    width: 2rem;
-    height: 3rem;
-    border-radius: .3rem;
-    padding: .5rem;
-}
+    50% {
+        transform: scale(1.4) rotate(180deg);
+        background-color: var(--extracolor);
+        border-color: var(--yellow)
+    }
 
-.keyboard button[data-key="Enter"],
-.keyboard button[data-key="Backspace"] {
-    width: 4rem;
+    100% {
+        transform: scale(1) rotate(360deg);
+    }
 }
